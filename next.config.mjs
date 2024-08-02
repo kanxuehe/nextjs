@@ -12,7 +12,7 @@ const nextConfig = {
     styledComponents: true,
   },
   sassOptions: {
-    additionalData: '@import "@/assets/styles/index.scss";',
+    additionalData: '@import "@/styles/variables.scss";',
   },
   images: {
     remotePatterns: [
