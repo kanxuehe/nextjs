@@ -1,3 +1,4 @@
+import Item from './components/Item';
 async function getData() {
   const data = await fetch('https://pokeapi.co/api/v2/item-pocket');
   await new Promise((resolve) => {
@@ -14,7 +15,7 @@ export default async function Home() {
     <>
       <article className="text-red-400">
         {data.results.map((item: any) => (
-          <div key={item.name}>{item.name}</div>
+          <Item key={item.name} data={item} />
         ))}
       </article>
     </>
