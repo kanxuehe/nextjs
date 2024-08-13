@@ -4,9 +4,7 @@ async function connect() {
   if (!connection.readyState) {
     mongoose.set('strictQuery', false);
     try {
-      await mongoose.connect(process.env.MONGODB_URL, {
-        useNewUrlParser: true,
-      });
+      await mongoose.connect(process.env.MONGODB_URL, {});
       console.log('Mongo Connected: ');
     } catch (error) {
       console.error('Failed to connect to MongoDB:', error.message);

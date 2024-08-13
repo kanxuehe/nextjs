@@ -3,7 +3,7 @@
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
 
-import { loginAsync } from '@/apis/register';
+import { loginAsync } from '@/apis/auth';
 // import { useRouter, useSearchParams } from 'next/navigation';
 // import { userLogin } from 'store';
 
