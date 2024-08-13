@@ -3,6 +3,7 @@
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
 
+import { loginAsync } from '@/apis/register';
 // import { useRouter, useSearchParams } from 'next/navigation';
 // import { userLogin } from 'store';
 
@@ -11,9 +12,8 @@ import Link from 'next/link';
 
 export default function LoginPage() {
   const formItems = [
-    { label: 'Username', name: 'username' },
-    { label: 'Password', name: 'password', type: 'password' },
     { label: 'Email', name: 'email', type: 'email' },
+    { label: 'Password', name: 'password', type: 'password' },
   ];
   //? Assets
   // const dispatch = useDispatch();
@@ -32,8 +32,8 @@ export default function LoginPage() {
   //     });
   //   }
   // };
-  const onFinish = async (values: any) => {
-    console.log('Success:', values);
+  const handleLogin = async (values: any) => {
+    const { success } = await loginAsync(values);
   };
   return (
     <>
@@ -51,17 +51,14 @@ export default function LoginPage() {
       )} */}
       <main className="grid items-center min-h-screen">
         <section className="container max-w-md px-12 py-6 space-y-6 lg:border lg:border-gray-100 lg:rounded-lg lg:shadow">
-          {/* <Link passHref href="/">
-            <Logo className="mx-auto w-48 h-24" />
-          </Link> */}
-          <h1>登录</h1>
+          <h1>Login</h1>
           <Form
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             style={{ maxWidth: 600 }}
             initialValues={{ remember: true }}
-            onFinish={onFinish}
+            onFinish={handleLogin}
             autoComplete="off"
           >
             {formItems.map(({ label, name, type }) => {
@@ -82,11 +79,17 @@ export default function LoginPage() {
                   key={name}
                   label={label}
                   name={name}
-                  rules={[
+                  rules={
                     type === 'email'
-                      ? { required: true, type }
-                      : { required: true, message: `Please input your ${label}!` },
-                  ]}
+                      ? [
+                          { required: true, message: `Please input your ${label}!` },
+                          {
+                            type,
+                            message: 'The input is not valid E-mail!',
+                          },
+                        ]
+                      : [{ required: true, message: `Please input your ${label}!` }]
+                  }
                 >
                   <Input />
                 </Form.Item>
@@ -94,14 +97,14 @@ export default function LoginPage() {
             })}
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Button type="primary" htmlType="submit">
-                Submit
+                login
               </Button>
             </Form.Item>
           </Form>
           <div className="text-xs">
-            <p className="inline mr-2 text-gray-800 text-xs">我还没有账户</p>
+            <p className="inline mr-2 text-gray-800 text-xs">have no account?</p>
             <Link href="/register" className="text-blue-400 text-xs">
-              去注册
+              sign up
             </Link>
           </div>
         </section>
