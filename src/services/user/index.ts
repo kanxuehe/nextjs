@@ -13,8 +13,9 @@ const createOne = async (data: any) => {
 
 const findOne = async (data: IUser) => {
   await db.connect();
-  const result = await UserModel.findOne(data);
-  if (!result) throw '用户名或密码错误';
+  const result = await UserModel.findOne({ email: data.email });
+  if (!result) throw '用户不存在';
+  if (result.password !== data.password) throw '密码错误';
   await db.disconnect();
   return {
     code: 200,
