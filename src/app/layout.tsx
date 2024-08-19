@@ -7,20 +7,8 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
   {
-    label: <Link href="/user">user</Link>,
-    key: 'user',
-  },
-  {
     label: <Link href="/food">food</Link>,
     key: 'food',
-  },
-  {
-    label: <Link href="/about">about</Link>,
-    key: 'about',
-  },
-  {
-    label: <Link href="/settings">settings</Link>,
-    key: 'settings',
   },
 ];
 const RootLayout = ({ children }: React.PropsWithChildren) => (
@@ -28,11 +16,12 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
     <body>
       {/* <StyledComponentsRegistry> */}
       <AntdRegistry>
-        <header>
-          <Menu selectedKeys={['1']} mode="horizontal" items={items} />
+        <header className="flex items-center">
+          <Link href="/">LOGO</Link>
+          <Menu className="flex-1" selectedKeys={['1']} mode="horizontal" items={items} />
         </header>
-        {children}
-        <footer>footer</footer>
+        <main className="min-h-[400px]">{children}</main>
+        <footer className="flex items-center justify-center h-[300px] bg-gray-400">footer</footer>
       </AntdRegistry>
       {/* </StyledComponentsRegistry> */}
     </body>

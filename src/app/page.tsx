@@ -6,7 +6,6 @@ async function getData() {
       resolve(1);
     }, 4000);
   });
-  console.log(123);
   return data.json();
 }
 export default async function Home() {

@@ -3,6 +3,6 @@ declare namespace NodeJS {
     /** 基础路径 */
     NEXT_PUBLIC_BASEURL: string;
     // 密钥
-    NEXT_PUBLIC_PRIVATE_KEY: string;
+    AUTH_SECRET: string;
   }
 }
