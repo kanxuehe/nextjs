@@ -1,5 +1,5 @@
+import { message } from 'antd';
 import queryString from 'query-string';
-
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 interface Params {
@@ -72,8 +72,10 @@ class Request {
           .then((text) => {
             try {
               const errorData = JSON.parse(text);
+              message.error(errorData || '接口错误');
               return reject({ message: errorData || '接口错误', url: requestUrl });
             } catch {
+              message.error('接口错误');
               return reject({ message: text, url: requestUrl });
             }
           });

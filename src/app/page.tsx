@@ -1,4 +1,4 @@
-import Item from './components/Item';
+import Item from '@/components/Item';
 async function getData() {
   const data = await fetch('https://pokeapi.co/api/v2/item-pocket');
   await new Promise((resolve) => {
