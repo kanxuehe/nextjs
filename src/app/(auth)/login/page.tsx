@@ -4,6 +4,9 @@ import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
 
 import { loginAsync } from '@/apis/auth';
+
+import * as userServices from '@/services/user';
+
 // import { useRouter, useSearchParams } from 'next/navigation';
 // import { userLogin } from 'store';
 
@@ -33,6 +36,7 @@ export default function LoginPage() {
   //   }
   // };
   const handleLogin = async (values: any) => {
+    // await userServices.findOne(values);
     const { success } = await loginAsync(values);
   };
   return (

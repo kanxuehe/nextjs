@@ -1,25 +1,26 @@
-import mongoose, { connection } from 'mongoose';
+import mongoose from 'mongoose';
 
+const connections = {};
 async function connect() {
-  if (!connection.readyState) {
-    mongoose.set('strictQuery', false);
-    try {
-      await mongoose.connect(process.env.MONGODB_URL, {});
-      console.log('Mongo Connected: ');
-    } catch (error) {
-      console.error('Failed to connect to MongoDB:', error.message);
-    }
+  if (connections.isConnected) return;
+  // mongoose.set('strictQuery', false);
+  try {
+    const db = await mongoose.connect(process.env.MONGODB_URL);
+    connections.isConnected = db.connections[0].readyState;
+    console.log('[Mongo Connected]: ');
+  } catch (error) {
+    console.error('[Failed to connect to MongoDB]:', error.message);
   }
 }
 
 async function disconnect() {
-  if (connection.isConnected) {
+  if (connections.isConnected) {
     if (process.env.NODE_ENV === 'production') {
       await mongoose.disconnect();
-      connection.isConnected = false;
+      connections.isConnected = false;
     } else {
       // await mongoose.disconnect();
-      // connection.isConnected = false;
+      // connections.isConnected = false;
       console.log('not disconnected');
     }
   }
