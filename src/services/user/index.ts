@@ -1,10 +1,12 @@
+'use server';
+
 import { IUser } from '@/apis/auth';
 
 import { db } from '@/helpers/db';
 import UserModel from '@/models/user';
 import { signToken } from '@/utils';
 
-const createOne = async (data: any) => {
+const createOne = async (data: IUser) => {
   await db.connect();
   const result = await UserModel.create(data);
   if (!result) throw '数据不存在';
@@ -12,7 +14,13 @@ const createOne = async (data: any) => {
   return result;
 };
 
-const findOne = async (data: IUser) => {
+interface Result {
+  code: number;
+  msg: string;
+  success: boolean;
+  data: any;
+}
+async function findOne(data: IUser): Promise<Result> {
   try {
     await db.connect();
     const result = await UserModel.findOne({ email: data.email });
@@ -26,11 +34,10 @@ const findOne = async (data: IUser) => {
       success: true,
       data: {
         token,
-        result,
       },
     };
   } catch (error) {
-    console.log(error);
+    throw error;
   }
-};
+}
 export { createOne, findOne };

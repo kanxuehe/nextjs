@@ -36,8 +36,9 @@ export default function LoginPage() {
   //   }
   // };
   const handleLogin = async (values: any) => {
-    // await userServices.findOne(values);
-    const { success } = await loginAsync(values);
+    const { data, success } = await userServices.findOne(values);
+    console.log(data, success);
+    // const { success } = await loginAsync(values);
   };
   return (
     <>
